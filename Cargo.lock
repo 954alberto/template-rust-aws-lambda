@@ -1063,7 +1063,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust_lambda_deny_sagemaker_access"
+name = "rust_lambda"
 version = "0.1.0"
 dependencies = [
  "aws-config",
