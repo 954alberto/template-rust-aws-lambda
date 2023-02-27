@@ -1,0 +1,29 @@
+name: aarch64-unknown-linux-gnu
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+  
+jobs:
+  aarch64-unknown-linux-gnu:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: aarch64-unknown-linux-gnu
+      run: rustup target add aarch64-unknown-linux-gnu && sudo apt update && sudo apt install -qy build-essential binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu && cargo build --release --target aarch64-unknown-linux-gnu
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: target/aarch64-unknown-linux-gnu/release/bootstrap
+        asset_name: lambda
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "This is the new release"

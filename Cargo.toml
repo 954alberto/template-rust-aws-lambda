@@ -1,0 +1,28 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+description = "{{description}}"
+authors = [ "{{authors}}" ]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "bootstrap"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+opt-level = 'z'
+panic = 'abort'
+strip = true
+
+[dependencies]
+tokio = { version = "1.25.0", features = ["full"] }
+# serde = "1.0.152"
+serde_json = "1.0.93"
+# log = "0.4.17"
+tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
+# NOTE: the following crate is not part of the SDK, but it is maintained by AWS.
+lambda_runtime = "0.7.3"
+aws-config = "0.54.1"
+aws_lambda_events = { version = "^0.7", default-features = false, features = ["apigw", "alb"] }
